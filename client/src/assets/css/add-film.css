@@ -1,0 +1,28 @@
+.attachFile {
+  color: grey;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* .dropdown-toggle::after {
+    display: none !important; 
+    background-color: transparent; 
+  }
+.dropdown-toggle{
+    background-color: transparent;
+    border: none;
+}
+.btn:hover{
+    background: transparent !important;
+    border: none;
+} */
+
+#dropdown-basic {
+  background: #343434;
+  width: 100%;
+  border: 1px solid white;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}

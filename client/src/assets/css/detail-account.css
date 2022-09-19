@@ -1,0 +1,14 @@
+.CgProfile {
+  background-color: red;
+  border-radius: 25px;
+  font-size: 30px;
+}
+
+.FiMail,
+.RiVipFill,
+.TbGenderBigender,
+.BsFillTelephoneFill,
+.SiGooglemaps {
+  color: red;
+  font-size: 30px;
+}

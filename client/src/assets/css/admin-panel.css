@@ -1,0 +1,13 @@
+.dropdown-toggle::after {
+  display: none !important;
+  background-color: transparent;
+  border: none;
+}
+.dropdown-toggle {
+  background-color: transparent;
+  border: none;
+}
+.btn:hover {
+  background: transparent !important;
+  border: none;
+}

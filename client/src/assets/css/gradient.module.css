@@ -1,0 +1,13 @@
+.gradient {
+  position: sticky;
+  top: 30px;
+  margin-top: -80px;
+  height: 20vh;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(25, 25, 25, 0.8911939775910365) 50%,
+    rgba(56, 56, 56, 0.10688025210084029) 100%
+  );
+}

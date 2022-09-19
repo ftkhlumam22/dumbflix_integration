@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Radif",
+    "image": "bca.jpg",
+    "Day": "26/Hari"
+  },
+  {
+    "id": 2,
+    "name": "Ilham",
+    "image": "bri.jpg",
+    "Day": "26/Hari"
+  },
+  {
+    "id": 3,
+    "name": "Samsul",
+    "image": "bni.jpg",
+    "Day": "26/Hari"
+  },
+  {
+    "id": 4,
+    "name": "Jodi",
+    "image": "danamon.jpg",
+    "Day": "26/Hari"
+  },
+  {
+    "id": 5,
+    "name": "Soni",
+    "image": "mandiri.jpg",
+    "Day": "26/Hari"
+  },
+  {
+    "id": 6,
+    "name": "Santi",
+    "image": "dana.jpg",
+    "Day": "26/Hari"
+  }
+]
