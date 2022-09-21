@@ -1,12 +1,89 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/add-plan.css";
 import Form from "react-bootstrap/Form";
 import { IoMdAttach } from "react-icons/io";
 import Button from "react-bootstrap/Button";
+import { useMutation } from "react-query";
+import { API } from "../config/api";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+import * as jose from "jose";
 
 function AddPlan() {
+  const [state] = useContext(UserContext);
+  let navigate = useNavigate();
+  let user = localStorage.getItem("token");
+  useEffect(() => {
+    //change this to the script source you want to load, for example this is snap.js sandbox env
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    //change this according to your client-key
+    const myMidtransClientKey = "SB-Mid-client-DDtfPItsQbv_cvb1";
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    // optional if you want to set script attribute
+    // for example snap.js have data-client-key attribute
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
+  const handleBuy = useMutation(async (e) => {
+    try {
+      e.preventDefault();
+      let tokens = localStorage.getItem("token");
+      console.log(tokens);
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + tokens,
+        },
+      };
+
+      let claims = jose.decodeJwt(user);
+
+      console.log(claims);
+
+      const data = {
+        user_id: claims.id,
+      };
+
+      const body = JSON.stringify(data);
+
+      console.log(body);
+
+      const response = await API.post("/transaction", body, config);
+      console.log(response);
+
+      // Create variabel for store token payment from response here ...
+      const token = response.data.data.token;
+
+      // Init Snap for display payment page with token here ...
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          /* You may add your own implementation here */
+          navigate("/");
+        },
+        onPending: function (result) {
+          /* You may add your own implementation here */
+          navigate("/");
+        },
+        onError: function (result) {
+          /* You may add your own implementation here */
+        },
+        onClose: function () {
+          /* You may add your own implementation here */
+          alert("You closed the popup without finishing the payment");
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
   return (
     <div
       style={{ background: "black", height: "90.5vh" }}
@@ -24,41 +101,12 @@ function AddPlan() {
             <strong style={{ color: "#E50914" }}> DUMBFLIX</strong>: 089123412
           </p>
         </div>
-
-        <div className="mb-3">
-          <Form.Control
-            placeholder="Input your account number"
-            style={{ background: "#343434", color: "white" }}
-          />
-        </div>
-
-        <div className="mb-5 pb-3">
-          <>
-            <label
-              htmlFor="thumbnail"
-              className="px-3 py-1 attachFile fw-semibold"
-              style={{
-                background: "white",
-                border: "1px solid white",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}>
-              Attach proof of transfer
-              <IoMdAttach
-                className="ms-2 attachFile"
-                style={{ color: "red", fontSize: "22px" }}
-              />
-            </label>
-            <input id="thumbnail" type="file" hidden></input>
-          </>
-        </div>
-
         <>
           <Button
             className="w-100 mt-3"
-            style={{ background: "red", border: "1px solid red" }}>
-            Kirim
+            style={{ background: "red", border: "1px solid red" }}
+            onClick={(e) => handleBuy.mutate(e)}>
+            Berlangganan
           </Button>{" "}
         </>
       </div>

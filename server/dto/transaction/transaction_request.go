@@ -6,8 +6,9 @@ type CreateTransactionRequest struct {
 	ID        string    `json:"id"`
 	StartDate time.Time `json:"statusdate"`
 	DueDate   time.Time `json:"duedate"`
-	Attache   string    `json:"attache"`
-	Status    string    `json:"category"`
+	Status    string    `json:"status"`
+	Price     int       `json:"price"`
+	UserID    int       `json:"user_id"`
 }
 
 type UpdateTransactionRequest struct {
@@ -15,5 +16,5 @@ type UpdateTransactionRequest struct {
 	StartDate time.Time `json:"statusdate"`
 	DueDate   time.Time `json:"duedate"`
 	Attache   string    `json:"attache"`
-	Status    bool      `json:"category"`
+	Status    string    `json:"status"`
 }

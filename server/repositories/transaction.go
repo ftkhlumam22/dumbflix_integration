@@ -10,7 +10,7 @@ type TransactionRepository interface {
 	FindTransactions() ([]models.Transaction, error)
 	GetTransaction(ID int) (models.Transaction, error)
 	CreateTransaction(category models.Transaction) (models.Transaction, error)
-	UpdateTransaction(category models.Transaction) (models.Transaction, error)
+	UpdateTransaction(status string, ID string) error
 	DeleteTransaction(category models.Transaction) (models.Transaction, error)
 }
 
@@ -31,21 +31,34 @@ func (r *repository) FindTransactions() ([]models.Transaction, error) {
 
 func (r *repository) GetTransaction(ID int) (models.Transaction, error) {
 	var transaction models.Transaction
-	err := r.db.Preload("User").First(&transaction, ID).Error
+	err := r.db.Debug().Preload("User").First(&transaction, ID).Error
 
 	return transaction, err
 }
 
 func (r *repository) CreateTransaction(transaction models.Transaction) (models.Transaction, error) {
-	err := r.db.Create(&transaction).Error
+	err := r.db.Debug().Create(&transaction).Error
 
 	return transaction, err
 }
 
-func (r *repository) UpdateTransaction(transaction models.Transaction) (models.Transaction, error) {
+func (r *repository) UpdateTransaction(status string, ID string) error {
+	var transaction models.Transaction
+	r.db.Preload("User").First(&transaction, ID)
+
+	// If is different & Status is "success" decrement product quantity
+	if status != transaction.Status && status == "success" {
+		var user models.User
+		r.db.First(&user, transaction.User.ID)
+		user.Profile.Subscribe = true
+		r.db.Save(&user)
+	}
+
+	transaction.Status = status
+
 	err := r.db.Save(&transaction).Error
 
-	return transaction, err
+	return err
 }
 
 func (r *repository) DeleteTransaction(transaction models.Transaction) (models.Transaction, error) {

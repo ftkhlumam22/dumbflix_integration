@@ -136,7 +136,6 @@ function AddFilm() {
       });
       Success({ message: "Episode berhasil ditambahkan!" });
     } catch (err) {
-      // maksudnya kalau misal upload film, tapi gagal upload episode, delete aja film yang sebelumnya walaupun aslinya bisa masuk
       await API.delete(`/film/${submitFilm.data.data.id}`, config, {
         validateStatus: () => true,
       });

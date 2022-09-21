@@ -7,7 +7,8 @@ type Transaction struct {
 	StartDate time.Time `json:"statusdate"`
 	DueDate   time.Time `json:"duedate"`
 	Attache   string    `json:"attache"`
-	Status    string    `json:"status"`
+	Status    string    `json:"status" gorm:"type: varchar(255)"`
+	Price     int       `json:"price"`
 	UserID    int       `json:"user_id" gorm:"type:int"`
 	User      User      `json:"user"`
 }
