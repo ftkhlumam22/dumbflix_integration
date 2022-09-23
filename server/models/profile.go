@@ -1,23 +1,21 @@
 package models
 
 type Profile struct {
-	ID        int    `json:"id" gorm:"primary_key:auto_increment"`
-	FullName  string `json:"full_name" gorm:"type: varchar(255)"`
-	Phone     string `json:"phone" gorm:"type: varchar(255)"`
-	Gender    string `json:"gender" gorm:"type: varchar(255)"`
-	Address   string `json:"address" gorm:"type: text"`
-	Subscribe bool   `json:"subscribe" gorm:"type: bool"`
-	UserID    int    `json:"user_id"`
-	User      User   `json:"user"`
+	ID       int    `json:"id" gorm:"primary_key:auto_increment"`
+	FullName string `json:"full_name" gorm:"type: varchar(255)"`
+	Phone    string `json:"phone" gorm:"type: varchar(255)"`
+	Gender   string `json:"gender" gorm:"type: varchar(255)"`
+	Address  string `json:"address" gorm:"type: text"`
+	UserID   int    `json:"user_id"`
+	User     User   `json:"user"`
 }
 
 type ProfileResponse struct {
-	FullName  string `json:"full_name"`
-	Phone     string `json:"phone"`
-	Gender    string `json:"gender"`
-	Address   string `json:"address"`
-	Subscribe bool   `json:"subscribe"`
-	UserID    int    `json:"user_id"`
+	FullName string `json:"full_name"`
+	Phone    string `json:"phone"`
+	Gender   string `json:"gender"`
+	Address  string `json:"address"`
+	UserID   int    `json:"user_id"`
 }
 
 func (ProfileResponse) TableName() string {

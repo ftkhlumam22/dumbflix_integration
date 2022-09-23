@@ -9,15 +9,17 @@ type User struct {
 	IsAdmin      bool            `json:"isAdmin"`
 	Profile      ProfileResponse `json:"profile" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Transactions []Transaction   `json:"transactions"`
+	Subscribe    bool            `json:"subscribe" gorm:"type: bool"`
 	Films        []Film          `json:"film"`
 	CreatedAt    time.Time       `json:"-"`
 	UpdatedAt    time.Time       `json:"-"`
 }
 
 type UsersProfileResponse struct {
-	ID      int    `json:"id"`
-	Email   string `json:"email"`
-	IsAdmin bool   `json:"isAdmin"`
+	ID        int    `json:"id"`
+	Email     string `json:"email"`
+	IsAdmin   bool   `json:"isAdmin"`
+	Subscribe bool   `json:"subscribe"`
 }
 
 type UserTransaction struct {

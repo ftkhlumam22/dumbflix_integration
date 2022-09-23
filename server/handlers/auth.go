@@ -63,15 +63,15 @@ func (h *handlerAuth) Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := models.User{
-		Email:    request.Email,
-		Password: password,
-		IsAdmin:  false,
+		Email:     request.Email,
+		Password:  password,
+		IsAdmin:   false,
+		Subscribe: false,
 		Profile: models.ProfileResponse{
-			FullName:  request.FullName,
-			Phone:     request.Phone,
-			Gender:    request.Gender,
-			Address:   request.Address,
-			Subscribe: false,
+			FullName: request.FullName,
+			Phone:    request.Phone,
+			Gender:   request.Gender,
+			Address:  request.Address,
 		},
 	}
 

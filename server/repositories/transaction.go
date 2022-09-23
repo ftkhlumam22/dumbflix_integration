@@ -50,7 +50,7 @@ func (r *repository) UpdateTransaction(status string, ID string) error {
 	if status != transaction.Status && status == "success" {
 		var user models.User
 		r.db.First(&user, transaction.User.ID)
-		user.Profile.Subscribe = true
+		user.Subscribe = true
 		r.db.Save(&user)
 	}
 
